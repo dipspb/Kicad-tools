@@ -11,6 +11,118 @@ However seting up the attibutes for each pin might be difficult.
 The XML file can be generated using a CSV from the spread sheet.
 The examples in the subsequemt sections show this.
 
+Usage
+-----
+`python libgen <.xml file> <.lib file>`
+  
+Where `<.xml file>` is a file containing the PIN descriptions
+and `<.lib file>` is the name of the generated component description.
+
+`<.xml file>` is an XML format file, containing the pin descriptions and
+optional meta data.  It contains a single XML element `'component'`.
+
+example:
+```
+<component refname="Ref_des" compname="Comp_Name" package="PDIP">
+PIN1DESCRIPTION,ETYPE
+PIN2DESCRIPTION,ETYPE
+...
+</component>
+```
+Here Ref_des is your component Reference Designator and Comp_name
+is an Valid component Name. PDIP is the package of the component.
+ETYPE is the electrical type of the Pin:
+**I:** INPUT 
+
+**O:** OUTPUT
+
+**B:** Bi-Directional
+
+**T:** TRISTATE
+
+**P:** PASSIVE
+
+**U:** UNSPECIFIED
+
+**W:** POWER INPUT
+
+**w:** POWER OUTPUT
+
+**C:** OPEN COLLECTOR
+
+**E:** OPEN EMITTER
+
+**N:** NOT CONNECTED
+
+Additionally if no pin names are needed then `PIN_N="<Number of Pins>"`
+needs to be used. The created pins would have `PASSIVE` electrical Type.
+Example.
+```
+<component refname="J" compname="MOLEX_8" package="SIL" PIN_N="8">
+</component>
+```
+
+Schematics Symbol Packages:-
+```
+DIP -
+     1 _____________  N
+  -----| 1       N |-----
+       |           |
+     2 |           | N-1
+  -----| 2     N-1 |-----
+   .....................
+   .....................
+N/2 -1 |           | N/2
+  -----|N/2-1  N/2 |-----
+       |___________|
+
+SIP -
+  ____________  1
+  |        1 |------
+  |          |  2
+  |        2 |------
+  |          |
+...................
+...................
+  |          |  N
+  |        N |-------
+  |__________|
+
+CONN -
+     1 _____________  2
+  -----| 1       2 |-----
+       |           |
+     3 |           |  4
+  -----| 3       4 |-----
+   .....................
+   .....................
+   N-1 |           |  N
+  -----| N-1     N |-----
+       |___________|
+
+QUAD -
+                    ..  
+            |   |   ..   |   |
+           N|   |   ..   |   |
+            |   |   ..   |   |3N/4+1
+            |   |   ..   |   |
+        |-----------..----------|
+     1  |   N       ..          |
+--------| 1         ..          |--------
+     2  |           ..          |
+--------| 2         ..          |--------
+...........................................
+...........................................
+    N/4 |           ..          | 2N/4+1
+--------|N/4        ..   2N/4+1 |--------
+        |-----------------------|
+            |   |   ..   |   |
+            |   |   ..   |   |
+            |   |   ..   |   |
+            |   |   ..   |   |
+
+```
+
 Designed By
 -----------
 **A.D.H.A.R Labs Research,Bharat(India)**
