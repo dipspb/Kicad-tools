@@ -151,9 +151,9 @@ version 0.0 - Initial Release (2012-02-08)
 
 Limitation in Present Design
 -----------------------------
-The generator works to give only one component at a time however there are 
+The generator works to give only **one component at a time** however there are 
 plans to expand it for multiple components using a single XML file.
-
+Description file cant be generated at the moment but would be included in future release.
 
 License
 --------
