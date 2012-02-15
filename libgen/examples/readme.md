@@ -3,6 +3,8 @@ libgen - Examples
 
 Here are a few example files that would help to realize the use of the libgen too.
 They can be used to build the parts as per the usage specified.
+For better understanding view the 
+[`Tutorial`](https://github.com/AdharLabs/Kicad-tools/wiki/Tutorial-for-libgen) for this tool.
 
 z8.xml
 -------

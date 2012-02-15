@@ -10,6 +10,8 @@ online tool for generating the symbols.
 However seting up the attibutes for each pin might be difficult.
 The XML file can be generated using a CSV from the spread sheet.
 The examples in the subsequemt sections show this.
+A [`Tutorial`](https://github.com/AdharLabs/Kicad-tools/wiki/Tutorial-for-libgen)
+for this tool is also available.
 
 Usage
 -----
