@@ -1,7 +1,7 @@
 libgen - Library Generator Program for Kicad Schematics V0.0
 ===========================================================
 
-This Python based tool designed to create library symbols for Kicad schematics.
+This *Python( based tool designed to create library symbols for Kicad schematics.
 The output from the generation is a `.lib file` that can be imported into the `user library`.
 The input for this generation uses `XML file` to get the pins.
 This tool in multiple ways emulates the 
@@ -15,11 +15,11 @@ Usage
 -----
 `python libgen <.xml file> <.lib file>`
   
-Where `<.xml file>` is a file containing the PIN descriptions
+Where `<.xml file>` is a file containing the *PIN descriptions*
 and `<.lib file>` is the name of the generated component description.
 
-`<.xml file>` is an XML format file, containing the pin descriptions and
-optional meta data.  It contains a single XML element `**component**`.
+`<.xml file>` is an XML format file, containing the *pin descriptions* and
+optional meta data.  It contains a single XML element `<component>`.
 
 Example:
 
@@ -28,8 +28,9 @@ Example:
     PIN2DESCRIPTION,ETYPE
     ...
     </component>
-Here Ref_des is your component Reference Designator and Comp_name
-is an Valid component Name. PDIP is the package of the component.
+
+Here `Ref_des` is your component *Reference Designator* and `Comp_name`
+is an *Valid component Name*. `PDIP` is the *package* of the component.
 
 **ETYPE** is the electrical type of the Pin:
 
@@ -56,14 +57,15 @@ is an Valid component Name. PDIP is the package of the component.
 **N:** NOT CONNECTED
 
 Additionally if no pin names are needed then `PIN_N="<Number of Pins>"`
-needs to be used. The created pins would have `PASSIVE` electrical Type.
+needs to be used. The created pins would have `PASSIVE` **EType**.
 
-Example.
+Example:
 
     <component refname="J" compname="MOLEX_8" package="SIL" PIN_N="8">
     </component>
 
-Schematics Symbol Packages:-
+Schematics Symbol Packages Currently supported
+-----------------------------------------------
 
     DIP -
          1 _____________  N
