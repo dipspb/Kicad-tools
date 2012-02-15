@@ -22,14 +22,16 @@ and `<.lib file>` is the name of the generated component description.
 optional meta data.  It contains a single XML element `**component**`.
 
 Example:
-```<component refname="Ref_des" compname="Comp_Name" package="PDIP">
-PIN1DESCRIPTION,ETYPE
-PIN2DESCRIPTION,ETYPE
-...
-</component>```
+    <component refname="Ref_des" compname="Comp_Name" package="PDIP">
+    PIN1DESCRIPTION,ETYPE
+    PIN2DESCRIPTION,ETYPE
+    ...
+    </component>
 Here Ref_des is your component Reference Designator and Comp_name
 is an Valid component Name. PDIP is the package of the component.
-ETYPE is the electrical type of the Pin:
+
+**ETYPE** is the electrical type of the Pin:
+
 **I:** INPUT 
 
 **O:** OUTPUT
@@ -55,8 +57,8 @@ ETYPE is the electrical type of the Pin:
 Additionally if no pin names are needed then `PIN_N="<Number of Pins>"`
 needs to be used. The created pins would have `PASSIVE` electrical Type.
 Example.
-```<component refname="J" compname="MOLEX_8" package="SIL" PIN_N="8">
-</component>```
+    <component refname="J" compname="MOLEX_8" package="SIL" PIN_N="8">
+    </component>
 
 Schematics Symbol Packages:-
 
