@@ -1,7 +1,7 @@
 libgen - Library Generator Program for Kicad Schematics V0.0
 ===========================================================
 
-This *Python( based tool designed to create library symbols for Kicad schematics.
+This *Python* based tool designed to create library symbols for Kicad schematics.
 The output from the generation is a `.lib file` that can be imported into the `user library`.
 The input for this generation uses `XML file` to get the pins.
 This tool in multiple ways emulates the 
@@ -56,7 +56,7 @@ is an *Valid component Name*. `PDIP` is the *package* of the component.
 
 **N:** NOT CONNECTED
 
-Additionally if no pin names are needed then `PIN_N="<Number of Pins>"`
+Additionally **if no pin names are needed** then `PIN_N="<Number of Pins>"`
 needs to be used. The created pins would have `PASSIVE` **EType**.
 
 Example:
