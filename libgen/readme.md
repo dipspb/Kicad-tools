@@ -149,7 +149,13 @@ version 0.0 - Initial Release (2012-02-08)
 
  *  Support for QUAD Package type Symbol
 
- License
+Limitation in Present Design
+-----------------------------
+The generator works to give only one component at a time however there are 
+plans to expand it for multiple components using a single XML file.
+
+
+License
 --------
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
 
