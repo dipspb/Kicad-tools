@@ -3,12 +3,12 @@
 ############################################################################
 ##
 """
-##  libgen - Library Gnerator Program for Kicad Schematics V0.0
+##  libgen - Library Generator Program for Kicad Schematics V0.0
 ## 
 ##  Designed by
 ##         A.D.H.A.R Labs Research,Bharat(India)
 ##            Abhijit Bose( info@adharlabs.in )
-##                http://ahdarlabs.in
+##                http://adharlabs.in
 ##
 ## License:
 ## Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
