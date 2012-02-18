@@ -1,2 +1,3 @@
-<component refname="J" compname="MOLEX_8" package="SIP" PIN_N="8">
+<component refname="J" compname="MOLEX_8" package="SIP" PIN_N="8" 
+description="Connector 8Pin Throwhole" keywords="CONN CONN8">
 </component>

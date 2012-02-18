@@ -8,7 +8,7 @@ For better understanding view the
 
 z8.xml
 -------
-This is an example of the **Z8F1621** *PDIP* type chip.
+This is an example of the **Z8F1621** *PDIP* type chip. 
 
 To create the Library use `python ../libgen.py z8.xml z8.lib`
 
@@ -18,12 +18,14 @@ This would create the lib file. This example helps to realize the use of the
 conn8.xml
 ----------
 This is an exmple of **8-pin Molex connector** generated with a *Single In-line* `SIP` Package. 
+Also generates the `.dcm file` using the description and keywords in the `conn8.xml` file.
 
 To create the Library use `python ../libgen.py conn8.xml conn8.lib`
 
 This would create the lib file. This example helps to realize the use of the 
 `PIN_N="8"` attribute to create the pins on the package automatically. 
 This attibute is useful in creating diffrent type of connectors quickly.
+It also shows how to include the `Description` and `Keywords`.
 
 qfp64.xml
 ----------

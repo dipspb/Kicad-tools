@@ -3,7 +3,7 @@
 ############################################################################
 ##
 """
-##  libgen - Library Generator Program for Kicad Schematics V0.0
+##  libgen - Library Generator Program for Kicad Schematics V0.1
 ## 
 ##  Designed by
 ##         A.D.H.A.R Labs Research,Bharat(India)
@@ -27,24 +27,28 @@
 ##                 > Support for CONN Package type Symbol
 ##                 > Support for QUAD Package type Symbol
 ##
+## version 0.1 - Improvement Release (2012-02-18)
+##                 > Support for Single File parameter
+##                 > DCM File generation Incorporated
+##
 ############################################################################
 ############################################################################
 #IMPORTS>
-import xml.dom.minidom,sys, os
+import xml.dom.minidom,sys,os,re
 from datetime import datetime
 ############################################################################
 #EXPORT>
 __all__=['Help_xml2lib','xml2lib']
 __author__ = "Abhijit Bose(info@adharlabs.in)"
 __author_email__="info@adharlabs.in"
-__version__ = "0.0"
+__version__ = "0.1"
 ############################################################################
 #DEBUG> Print Additional Debug Messages
 #  if needed make _debug_message = 1
 _debug_message = 0
 ############################################################################
 #FORMAT>Lib
-template = """EESchema-LIBRARY Version 2.3  Date: 6/1/2012-05:30AM IST
+template_lib = """EESchema-LIBRARY Version 2.3  Date: 6/1/2012-05:30AM IST
 #encoding utf-8
 #
 # %(compname)s
@@ -59,6 +63,14 @@ ENDDRAW
 ENDDEF
 #
 # End Library
+"""
+template_dcm = """EESchema-DOCLIB  Version 2.0  Date: 6/1/2012-05:30AM IST
+#
+$CMP %(compname)s
+%(dk)s
+$ENDCMP
+#
+# End Doc Library
 """
 ############################################################################
 #FORMAT FUNCTIONS>
@@ -342,25 +354,57 @@ def GetTemplateDict(pins, d) :
     d = GetTemplate_QUAD(pins, d)
   return d
 
+def GetDcmDict(d):
+  """To Get the Description and Keyword part Generated for DCM file"""
+  tk = ""
+  #Check for Description
+  try:
+    d["description"]
+    tk = tk + "D "+ d["description"]
+  except KeyError:
+    d["description"] = None
+  #Check for keywords
+  try:
+    d["keywords"]
+    tk = tk + "\nK "+ d["keywords"]
+  except KeyError:
+    d["keywords"] = None
+  #Add the Description
+  d["dk"] = tk
+  return d
 ############################################################################
 #OTHER FUNCTIONS>
 def Help_xml2lib():
-  print """Usage: %s <spec file> <lib file>
+  print """Usage: %s <spec file> [<lib file>]
   
 Where <spec file> is a file containing the PIN descriptions
 and <lib file> is the name of the generated component description.
+The <lib file> is optional and can be generated automatically from the
+<spec file>. The <lib file> name would be used to generate the .DCM
+also with the same name.
 
 <spec file> is an XML format file, containing the pin descriptions and
 optional meta data.  It contains a single XML element 'component'.
 
 example:
-<component refname="Ref_des" compname="Comp_Name" package="PDIP">
+<component refname="Ref_des" compname="Comp_Name" package="PDIP"
+description="DESC" keywords="KEYW1 KEYW2 KEYW3">
 PIN1DESCRIPTION,ETYPE
 PIN2DESCRIPTION,ETYPE
 ...
 </component>
 Here Ref_des is your component Reference Designator and Comp_name
 is an Valid component Name. PDIP is the package of the component.
+
+"DESC" is the Description of the Components and is optional.
+"KEYW1 KEYW2 KEYW3" are the Keywords for your component
+and are optional. Both the Description and keywords must follow
+Kicad library rules.
+[.i.e. Description can contain any alpha numeric or
+  special character including space.]
+[.i.e. Keywords needs to be sperated by Space and can only
+  contain Alpha numeric characters along with underscore]
+
 ETYPE is the electrical type of the Pin:
 I: INPUT 
 O: OUTPUT
@@ -468,25 +512,49 @@ def xml2lib(srcxmlfile,destlibfile):
   d = GetTemplateDict(pins, meta)
   if _debug_message==1:
     print d
-  # Apply the Formatting on Template
-  out = template%d
+  # Agument the Dictionary with DCM Parameters as well
+  d = GetDcmDict(d)
+  # Apply the Formatting on Lib Template
+  out = template_lib%d
   print out
+  # Apply Optional Dcm Template
+  outdcm =""
+  if d["dk"] != "":
+    outdcm = template_dcm%d
+    print outdcm
   # Write The File
   file(destlibfile,"w").write(out)
+  print "File %s written"%destlibfile
+  # If Description exist the write the DCM
+  if outdcm != "":
+    dcmfl = re.match("(.*)\..*",destlibfile).group(1)+".dcm"
+    file(dcmfl,"w").write(outdcm)
+    print "File %s written"%dcmfl 
   #} End of Lib Gen
   
 ############################################################################
 #MAIN FUNCTION>
 if __name__ == "__main__" :
-  if not sys.argv[2:] :
+  if not sys.argv[1:] :#Atleast one Argument Supplied
     Help_xml2lib()
-  if not os.path.isfile(sys.argv[1]) :
+  if not os.path.isfile(sys.argv[1]) :#Check if the Source exists
     Help_xml2lib()
+  #File Names
+  srcfl = sys.argv[1]
+  destfl = ""
+  if sys.argv[2:] :#if Two Arguments were provided
+    destfl = sys.argv[2]
+  else:#if only One Argument
+    fl = re.match("(.*)\..*",srcfl)
+    if fl:#Create the Name of the Lib
+      destfl = str(fl.group(1))+".lib"
+    else:
+      destfl = srcfl + ".lib"      
   # Print the Introduction
   print __doc__
-  print "Source File> "+sys.argv[1]
-  print "Destination File> "+sys.argv[2]
+  print "Source File> "+srcfl
+  print "Destination File> "+destfl
   print
   # Process the files
-  xml2lib(sys.argv[1],sys.argv[2])
-  print "File %s written"%sys.argv[2]
+  xml2lib(srcfl,destfl)
+  

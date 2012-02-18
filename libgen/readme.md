@@ -1,4 +1,4 @@
-libgen - Library Generator Program for Kicad Schematics V0.0
+libgen - Library Generator Program for Kicad Schematics V0.1
 ===========================================================
 
 This *Python* based tool designed to create library symbols for Kicad schematics.
@@ -19,13 +19,17 @@ Usage
   
 Where `<.xml file>` is a file containing the *PIN descriptions*
 and `<.lib file>` is the name of the generated component description.
+The `<.lib file>` is **optional** and can be *generated automatically* from the
+`<.xml file>`.The `<.lib file>` name would be used to generate the `.DCM`
+which contains the *description* and *keywords* for the component.
 
 `<.xml file>` is an XML format file, containing the *pin descriptions* and
 optional meta data.  It contains a single XML element `<component>`.
 
 Example:
 
-    <component refname="Ref_des" compname="Comp_Name" package="PDIP">
+    <component refname="Ref_des" compname="Comp_Name" package="PDIP"
+    description="DESC" keywords="KEYW1 KEYW2 KEYW3">
     PIN1DESCRIPTION,ETYPE
     PIN2DESCRIPTION,ETYPE
     ...
@@ -33,6 +37,15 @@ Example:
 
 Here `Ref_des` is your component *Reference Designator* and `Comp_name`
 is an *Valid component Name*. `PDIP` is the *package* of the component.
+`"DESC"` is the Description of the Components and **is optional**.
+`"KEYW1 KEYW2 KEYW3"` are the Keywords for your component
+and **are optional**. 
+
+Both the Description and keywords must follow *Kicad library rules*.
+>[.i.e. Description can contain any alpha numeric or
+>  special character including space.]
+>[.i.e. Keywords needs to be sperated by Space and can only
+>  contain Alpha numeric characters along with underscore]
 
 **ETYPE** is the electrical type of the Pin:
 
@@ -150,6 +163,11 @@ version 0.0 - Initial Release (2012-02-08)
  *  Support for CONN Package type Symbol
 
  *  Support for QUAD Package type Symbol
+
+version 0.1 - Improvement Release (2012-02-18)
+ *  Support for Single File parameter
+
+ *  DCM File generation Incorporated
 
 Limitation in Present Design
 -----------------------------
