@@ -76,7 +76,7 @@ $ENDCMP
 #FORMAT FUNCTIONS>
 def PinDescriptions(comp):
   "Read in the pin descriptions as a list"
-  el = xmlcomp.getElementsByTagName("component")[0]
+  el = comp.getElementsByTagName("component")[0]
   xbits=[i.data for i in el.childNodes if i.nodeType==el.TEXT_NODE]
   
   # Split into lines
